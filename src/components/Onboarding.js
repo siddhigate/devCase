@@ -1,30 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useUserContext } from '../context/user-context'
+import GithubForm from './GithubForm'
+import HashnodeForm from './HashnodeForm'
+import TwitterForm from './TwitterForm'
 
 export default function Onboarding() {
 
-    const [username, setUsername] = useState('')
+    const [tab, setTab] = useState('github')
+    const { github, twitter, hashnode, twitterChallenge } = useUserContext()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(username)
-    }
+    useEffect(() => {
+        console.log(github, twitter, twitterChallenge, hashnode)
+    }, [github, twitter, twitterChallenge, hashnode])
 
     return (
-        <div>
+        <div className='card'>
             <h1>hey there 👋</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <span>enter your github profile name to continue:</span>
-                    <input 
-                        type='text'
-                        placeholder="github profile name"
-                        onChange={e => setUsername(e.target.value)}
-                        value={username}
-                    />
-                </label>
-                <button>go!</button>
-            </form>
-            
+            {tab === 'github' && <GithubForm setTab={setTab} />}
+            {tab === 'twitter' && <TwitterForm setTab={setTab} />}
+            {tab === 'hashnode' && <HashnodeForm />}
         </div>
     )    
 }

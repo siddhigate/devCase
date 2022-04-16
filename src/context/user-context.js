@@ -1,23 +1,23 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer, useContext } from 'react'
 
-export const UserContext = createContext()
+const UserContext = createContext()
 
 const userReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_GITHUB-USERNAME':
+        case 'SET_GITHUB':
             return { ...state, github: action.payload}
         case 'SET_TWITTER':
-            return { ...state, twitter: action.payload}
+            return { ...state, twitter: action.payload.twitter, twitterChallenge: action.payload.twitterChallenge}
         case 'SET_HASHNODE':
             return { ...state, hashnode: action.payload}
-        case 'SET_TWITTER_CHALLENGE':
-            return { ...state, twitterChallenge: action.payload}
         default:
             return state
     }
 }
 
-export const UserContextProvider = ({ children }) => {
+const useUserContext = () => useContext(UserContext);
+
+const UserContextProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(userReducer, {
         github: null,
@@ -32,4 +32,6 @@ export const UserContextProvider = ({ children }) => {
         </UserContext.Provider>
     )
 }
+
+export { useUserContext, UserContextProvider }
 
