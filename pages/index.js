@@ -1,13 +1,26 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { getTwitterUserId } from '../src/services/api-services'
+import { getGithubRepos, getTwitterUserId } from '../src/services/api-services'
+import useGithub from '../src/hooks/useGithub'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const handleClick = () => {
-    getTwitterUserId("SiddhiGate");
+  const [username, setUsername] = useState('')
+  const {isPending, error, user,repos, getUserInfo, getRepos} = useGithub();
+
+  const handleClick = async () => {
+    await getUserInfo(username);
+
+    if(!error)
+      getRepos(username)
+  
   }
+
+  useEffect(() => {
+    console.log(repos)
+  }, [repos])
 
   return (
     <div className={styles.container}>
@@ -17,7 +30,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <input type="text" onChange={e => setUsername(e.target.value)}></input>
       <button onClick={handleClick}>Click me</button>
+      {isPending && <p>loading</p>}
+
+      {error && <p>{error.statusText}{error.status}</p>}
+
+      {user &&<div> <p>{user.name}</p> <img src={user.avatar_url} width="300" height="300"></img> <p>{user.bio}</p> </div>}
     </div>
   )
 }
