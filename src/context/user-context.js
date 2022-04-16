@@ -1,37 +1,47 @@
-import { createContext, useReducer, useContext } from 'react'
+import {createContext, useContext, useReducer, useEffect} from "react";
 
-const UserContext = createContext()
+let initialState = {
+    github: null,
+    hashnode: null,
+    twitterId: null,
+    twitterChallenge: null,
+    githubRepos: [],
+    articles: [],
+    tweets: []
+}
 
 const userReducer = (state, action) => {
-    switch (action.type) {
-        case 'SET_GITHUB':
-            return { ...state, github: action.payload}
+
+    switch(action.type) {
+
         case 'SET_TWITTER':
-            return { ...state, twitter: action.payload.twitter, twitterChallenge: action.payload.twitterChallenge}
+            return {...state, twitterId: action.payload.twitterId, twitterChallenge: action.payload.twitterChallenge};
+        case 'SET_GITHUB':
+            return {...state, github: action.payload.github}
         case 'SET_HASHNODE':
-            return { ...state, hashnode: action.payload}
+            return {...state, hashnode: action.payload.hashnode, articles: action.payload.articles}
+        case 'SET_REPOS':
+            return {...state, githubRepos: action.payload.githubRepos}
+        case 'SET_TWEETS':
+            return {...state, tweets: action.payload.tweets}
         default:
-            return state
+            return state;
     }
 }
 
-const useUserContext = () => useContext(UserContext);
+const UserContext = createContext();
 
-const UserContextProvider = ({ children }) => {
+const UserContextProvider = ({children}) => {
 
-    const [state, dispatch] = useReducer(userReducer, {
-        github: null,
-        twitter: null,
-        hashnode: null,
-        twitterChallenge: null
-    })
+    const [ user, dispatch ] = useReducer(userReducer, initialState);
 
-    return (
-        <UserContext.Provider value={{ ...state, dispatch }}>
-            {children}
-        </UserContext.Provider>
-    )
+    useEffect(() => {
+        console.log(user)
+    }, [user])
+
+    return <UserContext.Provider value={{user, dispatch}}>{children}</UserContext.Provider>
 }
 
-export { useUserContext, UserContextProvider }
+const useUserContext = ()  => useContext(UserContext);
 
+export {UserContextProvider, useUserContext};

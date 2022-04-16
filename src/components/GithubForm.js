@@ -1,44 +1,37 @@
-import { useState, useEffect, useRef } from 'react'
-import { useUserContext } from '../context/user-context'
+import { useUserContext } from "../context/user-context";
+import useGithub from "../hooks/useGitHub";
+import { useState, useEffect } from "react";
 
-export default function GithubForm({ setTab }) {
+export default function GitHubForm({setTab}) {
+  const { user } = useUserContext();
+  const [username, setUsername] = useState("");
+  const { isPending, error, getUserInfo} = useGithub();
 
-    const [input, setInput] = useState('')
-    const [error, setError] = useState(null)
-    const { dispatch } = useUserContext()
-    const inputRef = useRef(null)
+  const handleNext = async (e) => {
+    e.preventDefault();
+    console.log("herrrrrrrrreeeeeeeeeee");
+    await getUserInfo(username);
+    setTab('twitter');
+  };
 
-    useEffect(() => {
-        inputRef.current.focus()
-    }, [])
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
-    const handleNext = (e) => {
-        e.preventDefault()
-        setError(null)
-
-        if (input === '') {
-            setError('this field cannot be empty')
-            return
-        }
-        
-        dispatch({ type: 'SET_GITHUB', payload: input })
-        setTab('twitter')
-    }
-
-    return (
-        <form onSubmit={handleNext}>                
+  return (
+    <form onSubmit={handleNext}>                
             <label>
                 <span>enter your github profile name to continue:</span>
                 <input 
                     type='text'
                     placeholder="github profile"
-                    onChange={e => setInput(e.target.value)}
-                    value={input}
-                    ref={inputRef}
+                    onChange={e => setUsername(e.target.value)}
+                    value={username}
                 />
             </label>            
             <button>next</button>
+            {isPending && <p>loading</p>}
             {error && <p>{error}</p>}
         </form>
-    )    
+  );
 }
