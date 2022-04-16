@@ -14,7 +14,6 @@ export const getTwitterUserId = (username) => {
     .catch((error) => console.log(error));
 };
 
-
 const APIURL = "https://api.github.com/users/";
 
 const getURL = (username) => APIURL + username;
@@ -35,10 +34,9 @@ const getGitHubUser = async (username) => {
 
     const user = await response.json();
 
-    return {...user, success: true}
-    
+    return { ...user, success: true };
   } catch (error) {
-    return {...error, success: false};
+    return { ...error, success: false };
   }
 };
 
@@ -56,27 +54,71 @@ const getGithubRepos = async (username) => {
 
     const data = await response.json();
 
-    const repoArr = await data.map(repo => {
+    const repoArr = await data.map((repo) => {
       return {
-          id: repo.id,
-          name: repo.name,
-          description: repo.description,
-          createdAt: repo.created_at,
-          liveURL: repo.homepage,
-          repoURL: repo.html_url,
-          language: repo.language,
-          topics: repo.topics,
-          starsCount: repo.stargazers_count,
-          forksCount: repo.forks_count
-  
-      }
-    })
+        id: repo.id,
+        name: repo.name,
+        description: repo.description,
+        createdAt: repo.created_at,
+        liveURL: repo.homepage,
+        repoURL: repo.html_url,
+        language: repo.language,
+        topics: repo.topics,
+        starsCount: repo.stargazers_count,
+        forksCount: repo.forks_count,
+      };
+    });
 
-    return {repos: repoArr, success: true}
-    
+    return { repos: repoArr, success: true };
   } catch (error) {
-    return {...error, success: false};
+    return { ...error, success: false };
   }
 };
 
-export {getGitHubUser, getGithubRepos};
+async function gql(query, variables = {}) {
+  const data = await fetch("https://api.hashnode.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
+  });
+
+  return data.json();
+}
+
+const getHashnodeBlogs = async (username) => {
+  let GET_USER_ARTICLES = `
+  query GetUserArticles($page: Int!) {
+      user(username: "${username}") {
+          publication {
+              posts(page: $page) {
+                  title
+                  brief
+                  slug
+                  coverImage
+              }
+          }
+      }
+  }
+`;
+
+  const articles = await gql(GET_USER_ARTICLES, { page: 0 }).then((result) => {
+
+    console.log(result, username)
+    if(result.data.user.publication) {
+      return {articles: result.data.user.publication.posts, success:true};
+    }
+    else {
+      return {error: "no account",sucess: false}
+    }
+
+  });
+
+  return articles;
+};
+
+export { getGitHubUser, getGithubRepos, getHashnodeBlogs };
