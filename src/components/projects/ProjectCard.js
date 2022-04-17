@@ -1,5 +1,3 @@
-import fork from '/assets/fork-icon.svg'
-import star from '/assets/star-icon.svg'
 
 export default function ProjectCard({ repo }) {
 
