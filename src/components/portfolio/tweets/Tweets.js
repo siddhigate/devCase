@@ -16,9 +16,9 @@ export default function Tweets({ user }) {
     <div className="articles-section">
       {tweetsArr && tweetsArr.length > 0 && <h2>My Coding Journey 📝</h2>}
       {tweetsArr && tweetsArr.length > 0 && (
-        <div class="container-fluid blue-bg">
-        <div class="container">
-          <section class="timeline">
+        <div className="container-fluid blue-bg">
+        <div className="container">
+          <section className="timeline">
           {tweetsArr.map((tweet, index) => (
             <TweetCard key={Math.random()}  tweet={tweet} index={index}></TweetCard>
           ))}
