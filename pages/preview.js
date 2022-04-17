@@ -1,5 +1,6 @@
 import { useUserContext } from "../src/context/user-context";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const generateLandingMarkup = (user) => {
   let landingMarkup = "";
@@ -124,8 +125,8 @@ const generateTweetsMarkup = (user) => {
     tweet.text.includes("#30DaysOfCode")
   );
 
-  if(newTweetsArr.length < 1) {
-      return "";
+  if (newTweetsArr.length < 1) {
+    return "";
   }
 
   for (let i = 0; i < 6; i++) {
@@ -165,37 +166,40 @@ const generateTweetsMarkup = (user) => {
 };
 
 const generateFooterMarkup = (user) => {
+  if (!user) {
+    return "";
+  }
 
+  if (!user.github) {
+    return "";
+  }
 
-    if(!user) {
-        return "";
-    }
-
-    if(!user.github) {
-        return "";
-    }
-
-    let githubMarkup =  user.github ? `
+  let githubMarkup = user.github
+    ? `
     <li className="socials-list-item">
     <a href={user.github.html_url}>
         <i className="fa-brands fa-github social-icon"></i>
     </a>
     </li>
-    ` : null;
+    `
+    : null;
 
-    let twitterMarkup = user.twitterId ? `
+  let twitterMarkup = user.twitterId
+    ? `
     <li className="socials-list-item">
     <a href="https://wwww.twitter.com/${user.twitterId.data.username}">
     <i className="fa-brands fa-twitter social-icon"></i>
-</a></li>`: "";
+</a></li>`
+    : "";
 
-    let hashnodeMarkup = user.hashnode ? `
+  let hashnodeMarkup = user.hashnode
+    ? `
     <li className="socials-list-item">
     <a href="https://${user.hashnode}.hashnode.dev">
-    <i className="fa-brands fa-hashnode social-icon"></i></a><li>`: "";
+    <i className="fa-brands fa-hashnode social-icon"></i></a><li>`
+    : "";
 
-
-    let footerMarkup = `<footer>
+  let footerMarkup = `<footer>
     <div className="container-footer">
         <p className="text-center">stay connected!</p>
         <ul className="socials-list">
@@ -220,10 +224,9 @@ const generateFooterMarkup = (user) => {
     </div>
 </footer>
 <html>
-`
+`;
 
-return footerMarkup;
-
+  return footerMarkup;
 };
 
 const generateBody = (user) => {
@@ -258,9 +261,17 @@ export default function Preview() {
   const [userContent, setUserContent] = useState("");
   const { user } = useUserContext();
 
+  const router = useRouter();
+
   useEffect(() => {
     setUserContent(generateBody(user));
   }, [user]);
+
+  useEffect(() => {
+    if (!user.github) {
+      router.push("/");
+    }
+  }, []);
 
   const handleClipboard = () => {
     navigator.clipboard.writeText(userContent);
