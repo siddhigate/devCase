@@ -10,10 +10,10 @@ export default function TweetCard({ tweet, index }) {
       {tweet &&
         (index % 2 === 0 ? (
           <>
-            <div class="timeline-img"></div>
+            <div className="timeline-img"></div>
 
-            <div class="timeline-content js--fadeInLeft">
-              <div class="date">
+            <div className="timeline-content js--fadeInLeft">
+              <div className="date">
                 {new Date(tweet.created_at).toDateString()}
               </div>
               <p style={{ marginTop: "5rem" }}>{tweet.text}</p>
@@ -21,10 +21,10 @@ export default function TweetCard({ tweet, index }) {
           </>
         ) : (
           <>
-            <div class="timeline-img"></div>
+            <div className="timeline-img"></div>
 
-            <div class="timeline-content js--fadeInRight">
-              <div class="date">
+            <div className="timeline-content js--fadeInRight">
+              <div className="date">
                 {new Date(tweet.created_at).toDateString()}
               </div>
               <p style={{ marginTop: "5rem" }}>{tweet.text}</p>
