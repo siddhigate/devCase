@@ -61,12 +61,26 @@ export default function Preview() {
         navigator.clipboard.writeText(userContent)
     }
 
+    const download = (filename, textInput) => {
+        let element = document.createElement('a');
+        element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+        element.setAttribute('download', filename);
+        document.body.appendChild(element);
+        element.click();
+    }
+
+    const handleDownload = () => {
+        var filename = "portfolio.html";
+        download(filename, userContent);
+    }
+
     return (
         <>
             {user && (
                 <div className="preview">
                     <h1>preview✨</h1>
                     <button className="btn-preview" onClick={handleClipboard} >copy to clipboard</button>
+                    <button className="btn-preview" onClick={handleDownload} >download</button>
                     <textarea 
                         value={userContent}
                     />
