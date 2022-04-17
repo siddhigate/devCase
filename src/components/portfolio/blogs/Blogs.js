@@ -15,7 +15,7 @@ export default function Blogs({ user }) {
       {articlesArr.length > 0 && (
         <div className="articles-container">
           {articlesArr.map((article) => (
-            <BlogCard hashnode={hashnode} article={article}></BlogCard>
+            <BlogCard key={Math.random()} hashnode={hashnode} article={article}></BlogCard>
           ))}
         </div>
       )}

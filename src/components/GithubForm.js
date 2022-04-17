@@ -32,7 +32,7 @@ export default function GitHubForm({setTab}) {
             </label>            
             {!isPending && <button className="button">next</button>}
             {isPending && <button className="button" disabled>loading</button>}
-            {error && <p className="error">Couldn't find your profile :(  </p>}
+            {error && <p className="error">Could not find your profile :(  </p>}
         </form>
   );
 }

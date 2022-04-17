@@ -56,7 +56,7 @@ export default function TwitterForm({ setTab }) {
       
       {!isPending && <button type="submit" className="button">Next</button>}
       {isPending && <button type="submit" className="button" disabled>loading</button>}
-      {error && <p className="error">Couldn't fetch your profile :(</p>}
+      {error && <p className="error">Could not fetch your profile :(</p>}
     </form>
     <div className="flex-end"><button onClick={handleSkip} className="skip">skip</button></div>
     

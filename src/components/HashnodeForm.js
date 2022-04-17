@@ -46,7 +46,7 @@ export default function HashnodeForm() {
             
             {!isPending && <button type="submit" className="button">Done</button>}
             {isPending && <button type="submit" className="button" disabled>loading</button>}
-            {error && <p className="error">Couldn't fetch your profile :(</p>}
+            {error && <p className="error">Could not fetch your profile :(</p>}
       </form>
       <button onClick={handleSkip} className="skip">skip</button> </div>
   );
