@@ -12,7 +12,7 @@ export default function Projects() {
 
     return (
         <div className='projects'>
-            {user.githubRepos && user.githubRepos.map(repo => (
+            {user.githubRepos && user.githubRepos.slice(0, 6).map(repo => (
                 <ProjectCard repo={repo} key={repo.id} />
             ))}
         </div>
