@@ -11,6 +11,16 @@ export default function Tweets({ user }) {
 
   console.warn(tweets);
   console.info(tweetsArr)
+  
+  if(!tweetsArr) {
+      return <></>
+  }
+
+  const newTweetsArr = tweetsArr.filter(tweet => tweet.text.includes("#30DaysOfCode"))
+
+  if(newTweetsArr.length < 1) {
+    return <></>
+    }
 
   return (
     <div className="articles-section">

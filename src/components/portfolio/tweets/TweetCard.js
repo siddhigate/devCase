@@ -1,9 +1,7 @@
 export default function TweetCard({ tweet, index }) {
     console.log(index % 2 === 0)
 
-    if(!tweet.text.includes("#30DaysOfCode")) {
-        return <></>
-    }
+    
 
   return (
     <div className="timeline-item" key={Math.random()}>

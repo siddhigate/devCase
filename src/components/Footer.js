@@ -41,9 +41,9 @@ export default function Footer({ user }) {
                 </ul>
                 <div className="footer-list">
                     <p className="footer-name">
-                        <a href="index.html">{user.github.login}</a>
+                        {user.github && <a href="index.html">{user.github.login}</a>}
                     </p>
-                    <p className="copyright-text">© 2022 {user.github.login}. all rights reserved</p>
+                    <p className="copyright-text">© 2022 {user.github && user.github.login}. all rights reserved</p>
                 </div>
                 <table>
                     <tr>

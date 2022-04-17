@@ -515,11 +515,11 @@ body {
     background-color: white;
 
     height: 100%;
-    padding: 50px 30px 50px 30px;
+    /* padding: 50px 30px 50px 30px; */
 }
 
 .title-div {
-    color: #32408f;
+    color: #7C3AED;
     padding: 20px 0 20px 0;
 }
 
@@ -601,7 +601,7 @@ body {
 .timeline-img {
     width: 30px;
     height: 30px;
-    background: var(--blue-500);
+    background: #7C3AED;
     border-radius: 50%;
     position: absolute;
     left: 50%;
@@ -610,7 +610,7 @@ body {
 }
 
 .links-event-page {
-    background: var(--blue-500);
+    background: #7C3AED;
     color: #fff;
     padding: 8px 20px;
     text-transform: uppercase;
@@ -670,12 +670,12 @@ body {
 blockquote {
     margin-top: 30px;
     color: #757575;
-    border-left-color: #3f51b5;
+    border-left-color: #7C3AED;
     padding: 0 20px;
 }
 
 .date {
-    background: var(--blue-400);
+    background: #7C3AED;
     display: inline-block;
     color: #fff;
     padding: 10px;
@@ -763,16 +763,16 @@ td {
     padding: 0px;
 }
 .color1 {
-    background-color: #ddfffb;
+    background-color: #EDE9FE;
 }
 .color2 {
-    background-color: #B8FFF9;
+    background-color: #DDD6FE;
 }
 .color3 {
-    background-color: #85F4FF;
+    background-color: #C4B5FD;
 }
 .color4 {
-    background-color: #42C2FF;
+    background-color: #8B5CF6;
 }
 
 /* footer */
