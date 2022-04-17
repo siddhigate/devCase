@@ -69,23 +69,100 @@ const generateProjectsMarkup = (repos) => {
         ).toDateString()}</p>
         <p>Language: ${repos[i].language}</p>
         
-        <a className="link link-primary" href=${
-          repos[i].liveURL
-        }>live demo</a>
-        <a className="link link-secondary" href=${
-          repos[i].repoURL
-        }>see repo</a>
+        <a className="link link-primary" href=${repos[i].liveURL}>live demo</a>
+        <a className="link link-secondary" href=${repos[i].repoURL}>see repo</a>
     </div>`;
     }
 
-    projectMarkup += `<div></div`;
+    projectMarkup += `</div>`;
   }
-  return projectMarkup
+  return projectMarkup;
 };
 
-const generateArticlesMarkup = (articles) => {};
+const generateArticlesMarkup = (hashnode, articles) => {
+  if (!hashnode && articles.length < 1) {
+    return "";
+  }
 
-const generateTweetsMarkup = (tweets) => {};
+  let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2>`;
+
+  for (let i = 0; i < 4; i++) {
+    articlesMarkup += `
+        
+        <div class="article-card">
+            <img src="${articles[i].coverImage}" alt="">
+            <h3>${articles[i].title}</h3>
+            <p>${articles[i].brief}</p>
+            <a href="https://${hashnode}.hashnode.dev/${articles[i].slug}">Read more</a>
+        </div>
+        `;
+  }
+
+  articlesMarkup += `</div>`;
+
+  return articlesMarkup;
+};
+
+const generateTweetsMarkup = (user) => {
+  if (!user.twitterId) {
+    return "";
+  }
+
+  if (!user.tweets.data) {
+    return "";
+  }
+
+  if (user.tweets.data.length < 1) {
+    return "";
+  }
+
+  let tweetsMarkup = `<div class="articles-section">
+    <h2>My Coding Journey 📝</h2>`;
+
+  const tweetsArr = user.tweets.data;
+  const newTweetsArr = tweetsArr.filter((tweet) =>
+    tweet.text.includes("#30DaysOfCode")
+  );
+
+  if(newTweetsArr.length < 1) {
+      return "";
+  }
+
+  for (let i = 0; i < 6; i++) {
+    if (i <= newTweetsArr.length) {
+      if (i % 2 === 0) {
+        tweetsMarkup += `
+                <div class="timeline-item"> 
+                <div class="timeline-img"></div>
+
+                <div class="timeline-content js--fadeInLeft">
+                  <div class="date">
+                    ${new Date(newTweetsArr[i].created_at).toDateString()}
+                  </div>
+                  <p style={{ marginTop: "5rem" }}>${newTweetsArr[i].text}</p>
+                </div>
+                </div>
+                `;
+      } else {
+        tweetsMarkup += `
+                    <div class="timeline-item"> 
+                    <div class="timeline-img"></div>
+
+                    <div class="timeline-content js--fadeInRight">
+                      <div class="date">
+                        {new Date(tweet.created_at).toDateString()}
+                      </div>
+                      <p style={{ marginTop: "5rem" }}>{tweet.text}</p>
+                    </div>
+                    </div>
+                `;
+      }
+    }
+  }
+
+  tweetsMarkup += `</div>`;
+  return tweetsMarkup;
+};
 
 const generateFooterMarkup = (user) => {};
 
@@ -102,12 +179,21 @@ const generateBody = (user) => {
     if (user.githubRepos && user.githubRepos.length > 0) {
       markup += generateProjectsMarkup(user.githubRepos);
     }
+
+    if (user.hashnode && user.articles.articles.length > 1) {
+      markup += generateArticlesMarkup(user.hashnode, user.articles.articles);
+    }
+
+    if (user.twitterId && user.tweets.data && user.tweets.data.length > 0) {
+      console.log("hereeeeeeeeeee");
+      markup += generateTweetsMarkup(user);
+    }
   }
   return markup;
 };
 
 export default function Preview() {
-  const [userContent, setUserContent] = useState(null);
+  const [userContent, setUserContent] = useState("");
   const { user } = useUserContext();
 
   useEffect(() => {
