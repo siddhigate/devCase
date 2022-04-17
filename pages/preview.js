@@ -164,7 +164,67 @@ const generateTweetsMarkup = (user) => {
   return tweetsMarkup;
 };
 
-const generateFooterMarkup = (user) => {};
+const generateFooterMarkup = (user) => {
+
+
+    if(!user) {
+        return "";
+    }
+
+    if(!user.github) {
+        return "";
+    }
+
+    let githubMarkup =  user.github ? `
+    <li className="socials-list-item">
+    <a href={user.github.html_url}>
+        <i className="fa-brands fa-github social-icon"></i>
+    </a>
+    </li>
+    ` : null;
+
+    let twitterMarkup = user.twitterId ? `
+    <li className="socials-list-item">
+    <a href="https://wwww.twitter.com/${user.twitterId.data.username}">
+    <i className="fa-brands fa-twitter social-icon"></i>
+</a></li>`: "";
+
+    let hashnodeMarkup = user.hashnode ? `
+    <li className="socials-list-item">
+    <a href="https://${user.hashnode}.hashnode.dev">
+    <i className="fa-brands fa-hashnode social-icon"></i></a><li>`: "";
+
+
+    let footerMarkup = `<footer>
+    <div className="container-footer">
+        <p className="text-center">stay connected!</p>
+        <ul className="socials-list">
+                ${githubMarkup}
+                ${twitterMarkup}
+                ${hashnodeMarkup}
+        </ul>
+        <div className="footer-list">
+            <p className="footer-name">
+                <a href="index.html">${user.github.login}</a>
+            </p>
+            <p className="copyright-text">© 2022 ${user.github.login}. all rights reserved</p>
+        </div>
+        <table>
+            <tr>
+                <td className="color1"></td>
+                <td className="color2"></td>
+                <td className="color3"></td>
+                <td className="color4"></td>
+            </tr>
+        </table>
+    </div>
+</footer>
+<html>
+`
+
+return footerMarkup;
+
+};
 
 const generateBody = (user) => {
   let markup = "";
@@ -188,6 +248,8 @@ const generateBody = (user) => {
       console.log("hereeeeeeeeeee");
       markup += generateTweetsMarkup(user);
     }
+
+    markup += generateFooterMarkup(user);
   }
   return markup;
 };
