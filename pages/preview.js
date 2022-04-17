@@ -55,27 +55,27 @@ const generateProjectsMarkup = (repos) => {
   let projectMarkup = "";
 
   if (repos.length > 0) {
-    projectMarkup += `<div className='articles-section'><h2>My Projects 👩‍💻</h2>
-        <div className='projects'>
+    projectMarkup += `<div class='articles-section'><h2>My Projects 👩‍💻</h2>
+        <div class='projects'>
             `;
 
     for (let i = 0; i < 6; i++) {
       projectMarkup += `
       
-      <div className="card project-card">
+      <div class="card project-card">
         <h3>${repos[i].name}</h3>
         <p>${repos[i].description}</p>
-        <p className="createdAt">Created at: ${new Date(
+        <p class="createdAt">Created at: ${new Date(
           repos[i].createdAt
         ).toDateString()}</p>
         <p>Language: ${repos[i].language}</p>
         
-        <a className="link link-primary" href=${repos[i].liveURL}>live demo</a>
-        <a className="link link-secondary" href=${repos[i].repoURL}>see repo</a>
+        <a class="link link-primary" href=${repos[i].liveURL}>live demo</a>
+        <a class="link link-secondary" href=${repos[i].repoURL}>see repo</a>
     </div>`;
     }
 
-    projectMarkup += `</div>`;
+    projectMarkup += `</div></div>`;
   }
   return projectMarkup;
 };
@@ -85,7 +85,7 @@ const generateArticlesMarkup = (hashnode, articles) => {
     return "";
   }
 
-  let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2>`;
+  let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2><div class="articles-container">`;
 
   for (let i = 0; i < 4; i++) {
     articlesMarkup += `
@@ -99,7 +99,7 @@ const generateArticlesMarkup = (hashnode, articles) => {
         `;
   }
 
-  articlesMarkup += `</div>`;
+  articlesMarkup += `</div></div>`;
 
   return articlesMarkup;
 };
@@ -118,7 +118,9 @@ const generateTweetsMarkup = (user) => {
   }
 
   let tweetsMarkup = `<div class="articles-section">
-    <h2>My Coding Journey 📝</h2>`;
+    <h2>My Coding Journey 📝</h2> <div className="container-fluid blue-bg">
+    <div className="container">
+      <section className="timeline">`;
 
   const tweetsArr = user.tweets.data;
   const newTweetsArr = tweetsArr.filter((tweet) =>
@@ -140,7 +142,7 @@ const generateTweetsMarkup = (user) => {
                   <div class="date">
                     ${new Date(newTweetsArr[i].created_at).toDateString()}
                   </div>
-                  <p style={{ marginTop: "5rem" }}>${newTweetsArr[i].text}</p>
+                  <p style="margin-top: 5rem">${newTweetsArr[i].text}</p>
                 </div>
                 </div>
                 `;
@@ -151,9 +153,9 @@ const generateTweetsMarkup = (user) => {
 
                     <div class="timeline-content js--fadeInRight">
                       <div class="date">
-                        {new Date(tweet.created_at).toDateString()}
+                        ${new Date(newTweetsArr[i].created_at).toDateString()}
                       </div>
-                      <p style={{ marginTop: "5rem" }}>{tweet.text}</p>
+                      <p style="margin-top: 5rem">${newTweetsArr[i].text}</p>
                     </div>
                     </div>
                 `;
@@ -161,7 +163,7 @@ const generateTweetsMarkup = (user) => {
     }
   }
 
-  tweetsMarkup += `</div>`;
+  tweetsMarkup += `</section></div></div></div>`;
   return tweetsMarkup;
 };
 
@@ -176,9 +178,9 @@ const generateFooterMarkup = (user) => {
 
   let githubMarkup = user.github
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href={user.github.html_url}>
-        <i className="fa-brands fa-github social-icon"></i>
+        <i class="fa-brands fa-github social-icon"></i>
     </a>
     </li>
     `
@@ -186,39 +188,39 @@ const generateFooterMarkup = (user) => {
 
   let twitterMarkup = user.twitterId
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href="https://wwww.twitter.com/${user.twitterId.data.username}">
-    <i className="fa-brands fa-twitter social-icon"></i>
+    <i class="fa-brands fa-twitter social-icon"></i>
 </a></li>`
     : "";
 
   let hashnodeMarkup = user.hashnode
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href="https://${user.hashnode}.hashnode.dev">
-    <i className="fa-brands fa-hashnode social-icon"></i></a><li>`
+    <i class="fa-brands fa-hashnode social-icon"></i></a><li>`
     : "";
 
   let footerMarkup = `<footer>
-    <div className="container-footer">
-        <p className="text-center">stay connected!</p>
-        <ul className="socials-list">
+    <div class="container-footer">
+        <p class="text-center">stay connected!</p>
+        <ul class="socials-list">
                 ${githubMarkup}
                 ${twitterMarkup}
                 ${hashnodeMarkup}
         </ul>
-        <div className="footer-list">
-            <p className="footer-name">
+        <div class="footer-list">
+            <p class="footer-name">
                 <a href="index.html">${user.github.login}</a>
             </p>
-            <p className="copyright-text">© 2022 ${user.github.login}. all rights reserved</p>
+            <p class="copyright-text">© 2022 ${user.github.login}. all rights reserved</p>
         </div>
         <table>
             <tr>
-                <td className="color1"></td>
-                <td className="color2"></td>
-                <td className="color3"></td>
-                <td className="color4"></td>
+                <td class="color1"></td>
+                <td class="color2"></td>
+                <td class="color3"></td>
+                <td class="color4"></td>
             </tr>
         </table>
     </div>
