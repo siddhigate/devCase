@@ -870,5 +870,6 @@ td {
 }
 
 .preview {
-    padding: 1rem 3rem;
+    padding: 2rem;
+    text-align: center;
 }
