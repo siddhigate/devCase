@@ -118,9 +118,9 @@ const generateTweetsMarkup = (user) => {
   }
 
   let tweetsMarkup = `<div class="articles-section">
-    <h2>My Coding Journey 📝</h2> <div className="container-fluid blue-bg">
-    <div className="container">
-      <section className="timeline">`;
+    <h2>My Coding Journey 📝</h2> <div class="container-fluid blue-bg">
+    <div class="container">
+      <section class="timeline">`;
 
   const tweetsArr = user.tweets.data;
   const newTweetsArr = tweetsArr.filter((tweet) =>
