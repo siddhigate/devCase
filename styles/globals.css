@@ -2,78 +2,133 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-.brand {
-  font-size: 2rem;
-  font-weight: 700;
+.header .brand {
+    font-size: 1.25rem;
+    font-weight: 500;
 }
+
 
 .container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
 }
-/* 
-.header {
-  margin: 0 auto;
-  width: 80%;
-  padding: 1rem 2rem;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-} */
 
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.main .card {
+    margin: 2rem 0;
+    padding: 2.5rem;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border-radius: 2px;
+    border: 1px solid #F3F4F6;
+    width: 550px;
+    max-width: 70%;
+}
+
+.main h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card span {
+    font-size: 1rem;
 }
 
 
-
-.main span {
-  font-size: 1.5rem;
+.card input {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    display: block;
+    border: 1px solid #ddd6fe;
+    border-radius: 5px;
+    width: 100%;
 }
 
-.main input {
-  margin: 1rem 0;
-  padding: 0.8rem;
-  font-size: 1.2rem;
-  font-family: inherit;
-  display: block;
-  border: 1px solid #333;
-  border-radius: 12px;
-  width: 80%;
+.card select {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    display: block;
+    border: 1px solid #ddd6fe;
+    border-radius: 5px;
+    width: 100%;
+    background: transparent;
 }
 
-button {
-  cursor: pointer;
-  margin: 1rem 0;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-  border-radius: 10px;
-  background-color: rgb(167, 240, 255);
-  border: none;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+.card .button {
+    border:none;
+    outline: none;
+    background-color: #3b82f6;
+    margin-top: 1.25rem;
+    padding: 0.5rem 3rem;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: block;
 }
 
-button:hover {
-  background-color: rgb(109, 231, 255);
+.card .button:hover {
+    background-color: #1D4ED8;
 }
 
-.card {
-  margin: 2rem 0;
-  padding: 2.5rem;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-  border-radius: 24px;
-  max-width: 60%;
+.card .butotn:disabled {
+    opacity: 0.5;
 }
+
+.card .flex-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.card .skip {
+    margin-right: auto;
+    display: block;
+    color: #1D4ED8;
+    text-decoration: underline;
+    background-color: transparent;
+    text-align: right;
+    border: none;
+    outline: none;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.card .skip:hover {
+    color: #1E3A8A;
+}
+
+.card .error {
+    color:#F43F5E;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 750px) {
+
+    .main .card {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        box-shadow: none;
+        border-radius: 2px;
+        border: none;
+        max-width: 100%;
+    }
+ }
 
 .projects {
     display: grid;
@@ -89,11 +144,12 @@ button:hover {
     max-width: 100%;
     margin: 0 1rem;
     box-shadow: none;
-    border: 2px solid rgb(106, 106, 106);
+    border: 1px solid #D1D5DB;
+    padding: 1rem
 }
 
-.project-card h2 {
-    margin: 0.8rem 0;
+.project-card h3 {
+    margin: 1rem 0;
 }
 
 .project-card .createdAt{
@@ -106,19 +162,22 @@ button:hover {
     color: #fff;
     margin-top: 1rem;
     margin-right: 1rem;
-    border-radius: 12px;
-    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    padding: 0.5rem 2rem;
     text-decoration: none;
 }
 
 .project-card .link-primary {
-    background-color: rgb(71, 71, 71);
+    background-color: #6D28D9;
 }
 
 .project-card .link-secondary {
-    background-color: rgb(133, 133, 133);
+    background-color: #8B5CF6;
 }
 
+.project-card .link:hover {
+    background-color: #5B21B6   ;
+}
 
 *,
 *::before,
@@ -396,5 +455,52 @@ body {
     .main-image img {
         width: 10rem;
         height: 10rem;
+    }
+}
+
+
+.articles-section {
+    min-height: 100vh;
+}
+
+.articles-section h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 3rem 0;
+}
+
+.articles-container {
+
+    max-width: 1100px;
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.article-card {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.article-card a {
+
+    color: #7C3AED;
+    font-size: 1.1rem;
+    margin: 0.25rem 0;
+}
+
+.article-card a:hover {
+    color: #4C1D95;
+}
+
+@media screen and (max-width: 650px) {
+
+    .articles-container {
+        grid-template-columns: 1fr;
     }
 }

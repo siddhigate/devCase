@@ -22,6 +22,8 @@ const useTwitter = () => {
       dispatch({ type: "SET_TWITTER", payload: { twitterId: null, twitterChallenge: null } });
       setError(res.error);
     }
+
+    setIsPending(false);
   };
   return { isPending, error, getTwitterUser };
 };

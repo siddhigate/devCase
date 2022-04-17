@@ -4,6 +4,8 @@ import { useRouter } from "next/dist/client/router";
 import useTwitter from "../hooks/useTwitter";
 
 export default function TwitterForm({ setTab }) {
+
+  const {user} = useUserContext();
   const [username, setUsername] = useState("");
   const [challenge, setChallenge] = useState("");
   const { isPending, error, getTwitterUser } = useTwitter();
@@ -12,17 +14,28 @@ export default function TwitterForm({ setTab }) {
     e.preventDefault();
     console.log("aaaaaaaaaaaaaaa",username);
     await getTwitterUser(username, challenge);
-    setTab("hashnode");
+    
   };
+
+  useEffect(() => {
+    if(user.twitterId) {
+      setTab("hashnode");
+    }
+  }, [user])
+
+  useEffect(() => {
+    console.log(isPending)
+  }, [isPending])
 
   const handleSkip = () => {
     setTab("hashnode");
   };
 
   return (
+    <>
     <form onSubmit={handleNext}>
       <label>
-        <span>enter your twitter handle name to continue:</span>
+        <span>Enter your twitter username:</span>
         <input
           type="text"
           placeholder="@twitter handle"
@@ -31,7 +44,7 @@ export default function TwitterForm({ setTab }) {
         />
       </label>
       <label>
-        <span>select twitter challenge to continue:</span>
+        <span>Select twitter challenge: </span>
         <select
           onChange={(e) => setChallenge(e.target.value)}
           value={challenge}
@@ -41,10 +54,12 @@ export default function TwitterForm({ setTab }) {
         </select>
       </label>
       
-      <button type="submit">next</button>
-      <button onClick={handleSkip}>skip</button>
-      {isPending && <p>loading</p>}
-      {error && <p>{error}</p>}
+      {!isPending && <button type="submit" className="button">Next</button>}
+      {isPending && <button type="submit" className="button" disabled>loading</button>}
+      {error && <p className="error">Couldn't fetch your profile :(</p>}
     </form>
+    <div className="flex-end"><button onClick={handleSkip} className="skip">skip</button></div>
+    
+    </>
   );
 }

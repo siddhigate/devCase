@@ -4,6 +4,7 @@ import { useUserContext } from "../src/context/user-context";
 import useGithub from "../src/hooks/useGitHub";
 import { useRouter } from "next/router";
 import Projects from "../src/components/projects/Projects";
+import Blogs from "../src/components/portfolio/blogs/Blogs";
 
 export default function Portfolio() {
   let { user } = useUserContext();
@@ -22,8 +23,9 @@ export default function Portfolio() {
 
   return (
     <div>
-        {user && user.github && <Landing user={user} />}
-        <Projects />
+      {user && user.github && <Landing user={user} />}
+      {user && user.github && <Projects />}
+      {user && user.hashnode && <Blogs user={user}></Blogs>}
     </div>
-  )
+  );
 }

@@ -16,32 +16,38 @@ export default function HashnodeForm() {
     console.log("here?")
     console.log(e.target.value)
     await getBlogs(username)
-    router.push("/edit")
+    
   };
 
   const handleSkip = () => {
     router.push("/edit");
   }
 
+  useEffect(() => {
+    if(user.hashnode) {
+      router.push("/edit")
+    }
+  }, [user])
+
 
   return (
     <div>
     <form onSubmit={handleNext}>                
             <label>
-                <span>enter your hashnode profile name to continue:</span>
+                <span>Enter your hashnode username: </span>
                 <input 
                     type='text'
-                    placeholder="hashnode profile"
+                    placeholder="hashnode username"
                     onChange={e => setUsername(e.target.value)}
                     value={username}
                 />
             </label>      
                 
-            <button type="submit">next</button>
-             
-            {isPending && <p>loading</p>}
-            {error && <p>{error}</p>}
+            
+            {!isPending && <button type="submit" className="button">Done</button>}
+            {isPending && <button type="submit" className="button" disabled>loading</button>}
+            {error && <p className="error">Couldn't fetch your profile :(</p>}
       </form>
-      <button onClick={handleSkip}>skip</button> </div>
+      <button onClick={handleSkip} className="skip">skip</button> </div>
   );
 }

@@ -11,10 +11,13 @@ export default function Projects() {
     }, [user.githubRepos])
 
     return (
+        <div className='articles-section'><h2>My Projects 👩‍💻</h2>
         <div className='projects'>
+            
             {user.githubRepos && user.githubRepos.slice(0, 6).map(repo => (
                 <ProjectCard repo={repo} key={repo.id} />
             ))}
+        </div>
         </div>
     )
 }

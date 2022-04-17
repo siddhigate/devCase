@@ -7,21 +7,22 @@ export default function GitHubForm({setTab}) {
   const [username, setUsername] = useState("");
   const { isPending, error, getUserInfo} = useGithub();
 
-  const handleNext = async (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
     console.log("herrrrrrrrreeeeeeeeeee");
-    await getUserInfo(username);
-    setTab('twitter');
+    getUserInfo(username);
   };
 
   useEffect(() => {
-    console.log(user);
+    if(user.github) {
+      setTab('twitter')
+    }
   }, [user]);
 
   return (
     <form onSubmit={handleNext}>                
             <label>
-                <span>enter your github profile name to continue:</span>
+                <span>Enter your GitHub username:</span>
                 <input 
                     type='text'
                     placeholder="github profile"
@@ -29,9 +30,9 @@ export default function GitHubForm({setTab}) {
                     value={username}
                 />
             </label>            
-            <button>next</button>
-            {isPending && <p>loading</p>}
-            {error && <p>{error}</p>}
+            {!isPending && <button className="button">next</button>}
+            {isPending && <button className="button" disabled>loading</button>}
+            {error && <p className="error">Couldn't find your profile :(  </p>}
         </form>
   );
 }
