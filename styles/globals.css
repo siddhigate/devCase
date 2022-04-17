@@ -859,7 +859,7 @@ td {
 
     .container {
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
     }
 
     .footer-list {
