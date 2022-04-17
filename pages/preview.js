@@ -11,7 +11,7 @@ const generateLandingMarkup = (user) => {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${user.github}</title>
+            <title>${user.github.login}</title>
         
             
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,6 +60,8 @@ const generateProjectsMarkup = (repos) => {
             `;
 
     for (let i = 0; i < 6; i++) {
+
+        if(repos.length > i){
       projectMarkup += `
       
       <div class="card project-card">
@@ -73,7 +75,7 @@ const generateProjectsMarkup = (repos) => {
         <a class="link link-primary" href=${repos[i].liveURL}>live demo</a>
         <a class="link link-secondary" href=${repos[i].repoURL}>see repo</a>
     </div>`;
-    }
+    }}
 
     projectMarkup += `</div></div>`;
   }
@@ -88,6 +90,8 @@ const generateArticlesMarkup = (hashnode, articles) => {
   let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2><div class="articles-container">`;
 
   for (let i = 0; i < 4; i++) {
+
+    if(articles.length > i) {
     articlesMarkup += `
         
         <div class="article-card">
@@ -97,6 +101,7 @@ const generateArticlesMarkup = (hashnode, articles) => {
             <a href="https://${hashnode}.hashnode.dev/${articles[i].slug}">Read more</a>
         </div>
         `;
+    }
   }
 
   articlesMarkup += `</div></div>`;
@@ -245,7 +250,7 @@ const generateBody = (user) => {
       markup += generateProjectsMarkup(user.githubRepos);
     }
 
-    if (user.hashnode && user.articles.articles.length > 1) {
+    if (user.hashnode && user.articles.articles.length >= 1) {
       markup += generateArticlesMarkup(user.hashnode, user.articles.articles);
     }
 
