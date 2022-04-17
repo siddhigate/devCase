@@ -1,6 +1,7 @@
  
 import { useEffect } from 'react';
 import Landing from '../src/components/portfolio/Landing';
+import Projects from '../src/components/projects/Projects';
 import { useUserContext } from '../src/context/user-context'
 import useGithub from '../src/hooks/useGitHub';
 
@@ -20,7 +21,8 @@ export default function Portfolio() {
 
     return (
         <>
-            <Landing user={user}/>
+            {user && <Landing user={user}/>}
+            <Projects />
         </>
     )
 }
