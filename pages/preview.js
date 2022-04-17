@@ -36,7 +36,7 @@ const generateLandingMarkup = (user) => {
                 <div class="main-info">
                     <div class="wrapper">
                         
-                    <h1>${user.github.name}</h1>
+                    <h1>${user.github.login}</h1>
                     <p>${user.github.bio}</p>
                     <a href="${user.github.html_url}">Get in touch</a>
                     </div>
