@@ -57,15 +57,20 @@ export default function Preview() {
         setUserContent(generateBody(user))        
     }, [user])
 
+    const handleClipboard = () => {
+        navigator.clipboard.writeText(userContent)
+    }
+
     return (
         <>
             {user && (
-                <>
+                <div className="preview">
                     <h1>preview✨</h1>
+                    <button className="btn-preview" onClick={handleClipboard} >copy to clipboard</button>
                     <textarea 
                         value={userContent}
                     />
-                </>
+                </div>
             )}
         </>
     )

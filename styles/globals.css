@@ -866,3 +866,7 @@ td {
         flex-direction: column;
     }
 }
+
+.preview {
+    padding: 1rem 3rem;
+}
