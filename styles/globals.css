@@ -544,8 +544,10 @@ body {
 }
 
 .timeline-item {
-    width: 100%;
+    width: 95%;
+    margin: 0 auto;
     margin-bottom: 70px;
+    
 }
 
 .timeline-item:nth-child(even) .timeline-content {
@@ -859,7 +861,7 @@ td {
 
     .container {
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
     }
 
     .footer-list {
