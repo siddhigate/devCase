@@ -38,7 +38,7 @@ export default function Portfolio() {
 
   return (
     <div>
-      {user && user.github && <Landing user={user} />}
+      {user && user.github && <Landing user={user} router={router} />}
       {user && user.github && <Projects />}
       {user && user.hashnode && <Blogs user={user}></Blogs>}
       {user && user.twitterId && <Tweets user={user}></Tweets>}

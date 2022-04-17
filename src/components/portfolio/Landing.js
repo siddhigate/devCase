@@ -1,4 +1,7 @@
-export default function Landing({ user }) {
+export default function Landing({ user, router }) {
+
+
+
   return (
     <>
       <header className="header">
@@ -6,6 +9,7 @@ export default function Landing({ user }) {
           <img className="logo" src={user.github.avatar_url} alt={user.github.login}></img>
           {user.github.login}
         </div>
+        <button className="btn-preview" onClick={() => router.push('/preview')}>Preview</button>
       </header>
 
       <main className="main-wrapper">
