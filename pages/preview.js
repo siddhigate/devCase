@@ -1,6 +1,7 @@
 import { useUserContext } from "../src/context/user-context";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from 'next/head'
 
 const generateLandingMarkup = (user) => {
   let landingMarkup = "";
@@ -11,7 +12,7 @@ const generateLandingMarkup = (user) => {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Siddhi Gate</title>
+            <title>${user.github.login}</title>
         
             
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,7 @@ const generateLandingMarkup = (user) => {
                 <div class="main-info">
                     <div class="wrapper">
                         
-                    <h1>${user.github.name}</h1>
+                    <h1>${user.github.login}</h1>
                     <p>${user.github.bio}</p>
                     <a href="${user.github.html_url}">Get in touch</a>
                     </div>
@@ -55,27 +56,29 @@ const generateProjectsMarkup = (repos) => {
   let projectMarkup = "";
 
   if (repos.length > 0) {
-    projectMarkup += `<div className='articles-section'><h2>My Projects 👩‍💻</h2>
-        <div className='projects'>
+    projectMarkup += `<div class='articles-section'><h2>My Projects 👩‍💻</h2>
+        <div class='projects'>
             `;
 
     for (let i = 0; i < 6; i++) {
+
+        if(repos.length > i){
       projectMarkup += `
       
-      <div className="card project-card">
+      <div class="card project-card">
         <h3>${repos[i].name}</h3>
         <p>${repos[i].description}</p>
-        <p className="createdAt">Created at: ${new Date(
+        <p class="createdAt">Created at: ${new Date(
           repos[i].createdAt
         ).toDateString()}</p>
         <p>Language: ${repos[i].language}</p>
         
-        <a className="link link-primary" href=${repos[i].liveURL}>live demo</a>
-        <a className="link link-secondary" href=${repos[i].repoURL}>see repo</a>
+        <a class="link link-primary" href=${repos[i].liveURL}>live demo</a>
+        <a class="link link-secondary" href=${repos[i].repoURL}>see repo</a>
     </div>`;
-    }
+    }}
 
-    projectMarkup += `</div>`;
+    projectMarkup += `</div></div>`;
   }
   return projectMarkup;
 };
@@ -85,9 +88,11 @@ const generateArticlesMarkup = (hashnode, articles) => {
     return "";
   }
 
-  let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2>`;
+  let articlesMarkup = `<div class="articles-section"><h2>My Articles 📝</h2><div class="articles-container">`;
 
   for (let i = 0; i < 4; i++) {
+
+    if(articles.length > i) {
     articlesMarkup += `
         
         <div class="article-card">
@@ -97,9 +102,10 @@ const generateArticlesMarkup = (hashnode, articles) => {
             <a href="https://${hashnode}.hashnode.dev/${articles[i].slug}">Read more</a>
         </div>
         `;
+    }
   }
 
-  articlesMarkup += `</div>`;
+  articlesMarkup += `</div></div>`;
 
   return articlesMarkup;
 };
@@ -118,7 +124,9 @@ const generateTweetsMarkup = (user) => {
   }
 
   let tweetsMarkup = `<div class="articles-section">
-    <h2>My Coding Journey 📝</h2>`;
+    <h2>My Coding Journey 📝</h2> <div class="container-fluid blue-bg">
+    <div class="container">
+      <section class="timeline">`;
 
   const tweetsArr = user.tweets.data;
   const newTweetsArr = tweetsArr.filter((tweet) =>
@@ -140,7 +148,7 @@ const generateTweetsMarkup = (user) => {
                   <div class="date">
                     ${new Date(newTweetsArr[i].created_at).toDateString()}
                   </div>
-                  <p style={{ marginTop: "5rem" }}>${newTweetsArr[i].text}</p>
+                  <p style="margin-top: 5rem">${newTweetsArr[i].text}</p>
                 </div>
                 </div>
                 `;
@@ -151,9 +159,9 @@ const generateTweetsMarkup = (user) => {
 
                     <div class="timeline-content js--fadeInRight">
                       <div class="date">
-                        {new Date(tweet.created_at).toDateString()}
+                        ${new Date(newTweetsArr[i].created_at).toDateString()}
                       </div>
-                      <p style={{ marginTop: "5rem" }}>{tweet.text}</p>
+                      <p style="margin-top: 5rem">${newTweetsArr[i].text}</p>
                     </div>
                     </div>
                 `;
@@ -161,7 +169,7 @@ const generateTweetsMarkup = (user) => {
     }
   }
 
-  tweetsMarkup += `</div>`;
+  tweetsMarkup += `</section></div></div></div>`;
   return tweetsMarkup;
 };
 
@@ -176,9 +184,9 @@ const generateFooterMarkup = (user) => {
 
   let githubMarkup = user.github
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href={user.github.html_url}>
-        <i className="fa-brands fa-github social-icon"></i>
+        <i class="fa-brands fa-github social-icon"></i>
     </a>
     </li>
     `
@@ -186,39 +194,39 @@ const generateFooterMarkup = (user) => {
 
   let twitterMarkup = user.twitterId
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href="https://wwww.twitter.com/${user.twitterId.data.username}">
-    <i className="fa-brands fa-twitter social-icon"></i>
+    <i class="fa-brands fa-twitter social-icon"></i>
 </a></li>`
     : "";
 
   let hashnodeMarkup = user.hashnode
     ? `
-    <li className="socials-list-item">
+    <li class="socials-list-item">
     <a href="https://${user.hashnode}.hashnode.dev">
-    <i className="fa-brands fa-hashnode social-icon"></i></a><li>`
+    <i class="fa-brands fa-hashnode social-icon"></i></a><li>`
     : "";
 
   let footerMarkup = `<footer>
-    <div className="container-footer">
-        <p className="text-center">stay connected!</p>
-        <ul className="socials-list">
+    <div class="container-footer">
+        <p class="text-center">stay connected!</p>
+        <ul class="socials-list">
                 ${githubMarkup}
                 ${twitterMarkup}
                 ${hashnodeMarkup}
         </ul>
-        <div className="footer-list">
-            <p className="footer-name">
+        <div class="footer-list">
+            <p class="footer-name">
                 <a href="index.html">${user.github.login}</a>
             </p>
-            <p className="copyright-text">© 2022 ${user.github.login}. all rights reserved</p>
+            <p class="copyright-text">© 2022 ${user.github.login}. all rights reserved</p>
         </div>
         <table>
             <tr>
-                <td className="color1"></td>
-                <td className="color2"></td>
-                <td className="color3"></td>
-                <td className="color4"></td>
+                <td class="color1"></td>
+                <td class="color2"></td>
+                <td class="color3"></td>
+                <td class="color4"></td>
             </tr>
         </table>
     </div>
@@ -243,7 +251,7 @@ const generateBody = (user) => {
       markup += generateProjectsMarkup(user.githubRepos);
     }
 
-    if (user.hashnode && user.articles.articles.length > 1) {
+    if (user.hashnode && user.articles.articles.length >= 1) {
       markup += generateArticlesMarkup(user.hashnode, user.articles.articles);
     }
 
@@ -294,7 +302,13 @@ export default function Preview() {
   };
 
   return (
-    <>
+    <div>
+    <Head>
+        <title>devCase</title>
+        <meta name="description" content="Generated by create next app" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="./favicon.ico"></link>
+      </Head>
       {user && (
         <div className="preview">
           <h1>preview✨</h1>
@@ -307,6 +321,6 @@ export default function Preview() {
           <textarea value={userContent} />
         </div>
       )}
-    </>
+    </div>
   );
 }
