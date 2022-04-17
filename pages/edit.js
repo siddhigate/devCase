@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Projects from "../src/components/projects/Projects";
 import Blogs from "../src/components/portfolio/blogs/Blogs";
 import Tweets from "../src/components/portfolio/tweets/Tweets";
+import Footer from "../src/components/Footer";
 
 export default function Portfolio() {
   let { user, dispatch } = useUserContext();
@@ -42,6 +43,7 @@ export default function Portfolio() {
       {user && user.github && <Projects />}
       {user && user.hashnode && <Blogs user={user}></Blogs>}
       {user && user.twitterId && <Tweets user={user}></Tweets>}
+      {user && <Footer user={user}></Footer>}
     </div>
   );
 }

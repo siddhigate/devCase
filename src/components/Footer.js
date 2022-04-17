@@ -13,20 +13,30 @@ export default function Footer({ user }) {
                 <ul className="socials-list">
                     <li className="socials-list-item">
                         {/* <a href="https://twitter.com/KedarBasutkar"> */}
-                        <a href={`https://wwww.twitter.com/${user.twitterId.data.username}`}>
-                            <i className="fa-brands fa-twitter social-icon"></i>
-                        </a>
+                        { user.twitterId &&
+                            <a href={`https://wwww.twitter.com/${user.twitterId.data.username}`}>
+                                <i className="fa-brands fa-twitter social-icon"></i>
+                            </a>
+                        }
                     </li>
                     <li className="socials-list-item">
-                        <a href={user.github.html_url}>
+                        {
+                            user.github && 
+                            <a href={user.github.html_url}>
                             <i className="fa-brands fa-github social-icon"></i>
                         </a>
+                        }
+                        
                     </li>
                     <li className="socials-list-item">
-                        <a href="https://www.linkedin.com/in/kedar-basutkar-67b30a216/">
+                        {
+                            user.hashnode &&
+                            <a href="https://www.linkedin.com/in/kedar-basutkar-67b30a216/">
                             {/* <i className="fa-brands fa-linkedin-in "></i> */}
                             <i className="fa-brands fa-hashnode social-icon"></i>
                         </a>
+                        }   
+                        
                     </li>
                 </ul>
                 <div className="footer-list">
