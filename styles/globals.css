@@ -7,8 +7,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-
-
 .brand {
   font-size: 2rem;
   font-weight: 700;
@@ -36,6 +34,8 @@ body {
   align-items: center;
   flex: 1;
 }
+
+
 
 .main span {
   font-size: 1.5rem;
@@ -73,6 +73,50 @@ button:hover {
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   border-radius: 24px;
   max-width: 60%;
+}
+
+.projects {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 3rem;
+    max-width: 1100px;
+    /* justify-content: start;
+    align-items: start; */
+}
+
+.project-card {
+    max-width: 100%;
+    margin: 0 1rem;
+    box-shadow: none;
+    border: 2px solid rgb(106, 106, 106);
+}
+
+.project-card h2 {
+    margin: 0.8rem 0;
+}
+
+.project-card .createdAt{
+    margin: 0.5rem 0;
+    color: rgb(88, 88, 88);
+}
+
+.project-card .link {
+    display: inline-block;
+    color: #fff;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.project-card .link-primary {
+    background-color: rgb(71, 71, 71);
+}
+
+.project-card .link-secondary {
+    background-color: rgb(133, 133, 133);
 }
 
 

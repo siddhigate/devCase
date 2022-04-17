@@ -1,13 +1,19 @@
-import { UserContextProvider } from "../../context/user-context"
+import { useEffect } from 'react'
+import { useUserContext } from "../../context/user-context"
+import ProjectCard from './ProjectCard'
 
 export default function Projects() {
 
-    const { githubRepos } = UserContextProvider()
+    const { user } = useUserContext()
+
+    useEffect(() => {
+        console.log(user.githubRepos)
+    }, [user.githubRepos])
 
     return (
-        <div>
-            {githubRepos && githubRepos.map(repo => (
-                <p key={repo.id}>{repo.name}</p>
+        <div className='projects'>
+            {user.githubRepos && user.githubRepos.map(repo => (
+                <ProjectCard repo={repo} key={repo.id} />
             ))}
         </div>
     )
